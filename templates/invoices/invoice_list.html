@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Liste des factures</h1>
+<a href="{% url 'invoices:create' %}" class="btn btn-primary mb-3">Nouvelle facture</a>
+<ul class="list-group">
+    {% for invoice in invoices %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'invoices:detail' invoice.pk %}">
+            Facture #{{ invoice.id }} - {{ invoice.created_at|date:"j F Y" }}
+        </a>
+        <span>{{ invoice.products.count }} article(s)</span>
+    </li>
+    {% empty %}
+    <li class="list-group-item">Aucune facture.</li>
+    {% endfor %}
+</ul>
+
+{% if is_paginated %}
+<nav>
+    <ul class="pagination justify-content-center mt-3">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+        </li>
+        {% endif %}
+        <li class="page-item disabled">
+            <span class="page-link">
+                Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+        </li>
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
