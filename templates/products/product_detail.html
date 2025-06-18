@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ product.name }}</h1>
+<p>Prix: {{ product.price }} €</p>
+<p>Date de péremption : {{ product.expiry_date|date:"j F Y" }}</p>
+<a href="{% url 'products:edit' product.pk %}" class="btn btn-secondary">Modifier</a>
+<a href="{% url 'products:delete' product.pk %}" class="btn btn-danger">Supprimer</a>
+<a href="{% url 'products:list' %}" class="btn btn-link">Retour à la liste</a>
+{% endblock %}

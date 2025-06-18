@@ -6,7 +6,7 @@ class Product(models.Model):
     expiry_date = models.DateField()
 
     def __str__(self):
-        return f"{self.name} – {self.price}€"
+        return f"{self.name} - {self.price}€"
 
     class Meta:
         ordering = ['name']
